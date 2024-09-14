@@ -1,0 +1,46 @@
+<p-messages [(value)]="messages" [enableService]="true"></p-messages>
+<div class="p-10">
+  <form [formGroup]="timesheetFormGroup" (ngSubmit)="onSubmit()" class="flex flex-row gap-x-2">
+    <div class="flex flex-col">
+      <label for="task">Task</label>
+      <p-autoComplete formControlName="task" [suggestions]="tasks" (completeMethod)="filterTasks($event)" field="name" id="task" />
+    </div>
+
+    <div class="flex flex-col">
+      <label for="timeStart">Start Time</label>
+      <p-calendar id="timeStart" formControlName="timeStart" [showTime]="true" dateFormat="yy-mm-dd" />
+    </div>
+
+    <div class="flex flex-col">
+      <label for="timeEnd">End Time</label>
+      <p-calendar id="timeEnd" formControlName="timeEnd" [showTime]="true" dateFormat="yy-mm-dd" />
+    </div>
+
+    <div class="flex items-end ml-4">
+      <p-button label="Save" type="submit" class="bg-blue-600" [disabled]="isSaving || timesheetFormGroup.invalid"></p-button>
+    </div>
+  </form>
+
+  <div *ngIf="isSaving" class="spinner"></div>
+</div>
+
+<p-table [value]="logs" *ngIf="logs.length; else noLogs" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Task Name</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-log>
+    <tr>
+      <td>{{ log.task.name }}</td>
+      <td>{{ log.start | date:'medium' }}</td>
+      <td>{{ log.end | date:'medium' }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<ng-template #noLogs>
+  <p>No time logs available.</p>
+</ng-template>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'timesheet', loadChildren: () => import('./timelogs/timelogs.routing.module').then(m => m.TimelogsRoutingModule) },
   {
     path: '',
     redirectTo: '/dashboard',
