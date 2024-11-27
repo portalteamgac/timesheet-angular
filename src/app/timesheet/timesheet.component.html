@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="timesheet-form-container">
+    <form class="timesheet-form align-items-center" [formGroup]="timesheetForm" (ngSubmit)="onSubmitTimeSheet()">
+      <div class="new-timesheet-item m-3">
+        <label for="task">Task</label>
+        <p-autoComplete
+          class="new-timesheet-fields"
+          formControlName="task"
+          id="task"
+          [suggestions]="filteredTasks"
+          (completeMethod)="search($event)"
+          [forceSelection]="true"
+          field="taskName"
+          [dropdown]="true">
+        </p-autoComplete>
+        <div *ngIf="timesheetForm.get('task')?.touched && timesheetForm.get('task')?.invalid">
+          <small class="error">Please give a proper value for Task</small>
+        </div>
+      </div>
+      <div class="new-timesheet-item m-3">
+        <label for="task">Start Time</label>
+        <p-calendar class="new-timesheet-fields"
+         [maxDate]="maxDate"
+         [minDate]="minDate"
+         (onSelect)="onStartTimeSelect($event)"
+         inputId="calendar-24h"
+         [showTime]="true"
+         hourFormat="24"
+         formControlName="startTime" />
+        <div *ngIf="timesheetForm.get('startTime')?.touched && timesheetForm.get('startTime')?.invalid">
+          <small class="error">Please give a proper value for Task</small>
+        </div>
+      </div>
+      <div class="new-timesheet-item m-3">
+        <label for="task">Task</label>
+        <p-calendar class="new-timesheet-fields"
+        [maxDate]="maxDate"
+        [minDate]="minDateForEndTime"
+        inputId="calendar-24h"
+        [showTime]="true"
+        hourFormat="24"
+        formControlName="endTime" />
+        <div *ngIf="timesheetForm.get('startTime')?.touched && timesheetForm.get('endTime')?.invalid">
+          <small class="error">Please give a proper value for Task</small>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="timesheetForm.invalid">Save</button>
+    </form>
+  </div>
+  <div class="timehistory-container">
+    <p-table [value]="taskCollection" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Task</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task>
+          <tr>
+              <td>{{ task.name }}</td>
+              <td>{{ task.startTime }}</td>
+              <td>{{ task.endTime }}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+
+  </div>
+
+</div>
+<p-toast></p-toast>

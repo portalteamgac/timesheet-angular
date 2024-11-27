@@ -1,0 +1,27 @@
+.timesheet-form-container {
+  .timesheet-form {
+    display: flex;
+    flex-direction: row;
+    .new-timesheet-item {
+      display: flex;
+      flex-direction: column;
+      .new-timesheet-fields {
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .error {
+        color: red;
+      }
+    }
+    .timesheet-submitbtn {
+      width: 50px;
+      height: 40px;
+    }
+  }
+
+
+}
+
+
